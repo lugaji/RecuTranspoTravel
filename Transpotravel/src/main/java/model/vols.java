@@ -17,114 +17,80 @@ public class vols {
 		int IDVols;
 		int Origen;
 		int Desti;
-		int preu;
 		int maxPas;
 		int maxPes;
-		LocalDateTime Arribada;
-		LocalDateTime Sortida;
-
-
-		public vols(int iDVols, int origen, int desti, int preu, int maxPas, int maxPes, LocalDateTime horaArribada,
-				LocalDateTime horaSortida) {
+		String sortida;
+		String arribada;
+		int preu;
+		
+		
+		
+		public vols(int iDVols, int origen, int desti, int maxPas, int maxPes, String sortida, String arribada,
+				int preu) {
 			super();
 			IDVols = iDVols;
 			Origen = origen;
 			Desti = desti;
-			this.preu = preu;
 			this.maxPas = maxPas;
 			this.maxPes = maxPes;
-			this.Arribada = horaArribada;
-			this.Sortida = horaSortida;
+			this.sortida = sortida;
+			this.arribada = arribada;
+			this.preu = preu;
 		}
-
-
-		public int getEquipatges() {
-			return maxPes;
-		}
-
-
-		public void setEquipatges(int equipatges) {
-			this.maxPes = equipatges;
-		}
-
-		public int getPlaces() {
-			return maxPas;
-		}
-
-
-		public void setPlaces(int places) {
-			this.maxPas = places;
-		}
-			
-
-		public int getIddistribuciovols() {
+		
+		public int getIDVols() {
 			return IDVols;
-		}		
-
-
-
-
-		public void setIddistribuciovols(int iddistribuciovols) {
-			this.IDVols = iddistribuciovols;
 		}
-
-
-		public int getIdorigen() {
+		public void setIDVols(int iDVols) {
+			IDVols = iDVols;
+		}
+		public int getOrigen() {
 			return Origen;
 		}
-
-
-		public void setIdorigen(int idorigen) {
-			this.Origen = idorigen;
+		public void setOrigen(int origen) {
+			Origen = origen;
 		}
-
-
-		public int getIddesti() {
+		public int getDesti() {
 			return Desti;
 		}
-
-
-		public void setIddesti(int iddesti) {
-			this.Desti = iddesti;
+		public void setDesti(int desti) {
+			Desti = desti;
 		}
-
-
+		public int getMaxPas() {
+			return maxPas;
+		}
+		public void setMaxPas(int maxPas) {
+			this.maxPas = maxPas;
+		}
+		public int getMaxPes() {
+			return maxPes;
+		}
+		public void setMaxPes(int maxPes) {
+			this.maxPes = maxPes;
+		}
+		public String getSortida() {
+			return sortida;
+		}
+		public void setSortida(String sortida) {
+			this.sortida = sortida;
+		}
+		public String getArribada() {
+			return arribada;
+		}
+		public void setArribada(String arribada) {
+			this.arribada = arribada;
+		}
 		public int getPreu() {
 			return preu;
 		}
-
-
 		public void setPreu(int preu) {
 			this.preu = preu;
 		}
 
-
-		public LocalDateTime getHoraArribada() {
-			return Arribada;
-		}
-
-
-		public void setHoraArribada(LocalDateTime horaArribada) {
-			this.Arribada = horaArribada;
-		}
-
-
-		public LocalDateTime getHoraSortida() {
-			return Sortida;
-		}
-
-
-		public void setHoraSortida(LocalDateTime horaSortida) {
-			this.Sortida = horaSortida;
-		}
-
-
 		@Override
 		public String toString() {
-			return "vols [IDVols=" + IDVols + ", Origen=" + Origen + ", Desti=" + Desti + ", preu=" + preu + ", maxPas="
-					+ maxPas + ", maxPes=" + maxPes + ", horaArribada=" + Arribada + ", horaSortida=" + Sortida
-					+ "]";
+			return "vols [IDVols=" + IDVols + ", Origen=" + Origen + ", Desti=" + Desti + ", maxPas=" + maxPas
+					+ ", maxPes=" + maxPes + ", sortida=" + sortida + ", arribada=" + arribada + ", preu=" + preu + "]";
 		}
-	
 
 }

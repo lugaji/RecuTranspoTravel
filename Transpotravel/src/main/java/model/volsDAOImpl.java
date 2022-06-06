@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 //import javafx.scene.image.Image;
 //import javafx.scene.image.ImageView;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class volsDAOImpl implements volsDAO{
@@ -91,9 +92,9 @@ public class volsDAOImpl implements volsDAO{
 	}
 	
 	
-	/*public static void ActualitzarEstatVol(Conbd conn,int volActualitzar,String EstatNou) {
+	/*public static void ActualitzarVol(Conbd conn,int volActualitzar,String EstatNou) {
 		
-		String sql2 = "update distribuciovols set estat='"+EstatNou+"' where IDVols="+volActualitzar+";";
+		String sql2 = "update vols set estat='"+EstatNou+"' where IDVols="+volActualitzar+";";
     	PreparedStatement pst = null;
 
 		try {
@@ -218,9 +219,12 @@ public class volsDAOImpl implements volsDAO{
 				int MaxPes = rs.getInt("MaxPes");
 				LocalDateTime horaSortida = rs.getObject("Sortida", LocalDateTime.class);
 				LocalDateTime horaArribada = rs.getObject("Arribada", LocalDateTime.class);
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+				String arribada = horaArribada.format(formatter);
+		    	String sortida = horaSortida.format(formatter);
 				int preu = rs.getInt("preu");
 				
-				vols afegir = new vols(IDVols, idorigen,iddesti,preu,MaxPas,MaxPes,horaArribada,horaSortida);
+				vols afegir = new vols(IDVols, idorigen,iddesti,MaxPas,MaxPes,sortida,arribada,preu);
 
 				llista2.add(afegir);			
 				
@@ -336,17 +340,9 @@ public class volsDAOImpl implements volsDAO{
     	}
 	}
 	
-	public static void insertarVol(Conbd conn,int IDVol, int idorigen,int iddesti,int MaxPass,int MaxPes,LocalDateTime horaSortida,LocalDateTime horaArribada,int preu) {
+	public static void insertarVol(Conbd conn,int IDVol, int idorigen,int iddesti,int MaxPass,int MaxPes,String horaSortida,String horaArribada,int preu) {
     	
-		String sql = "insert into transpotravelrecu.vols(IDVols,Origen,Desti,MaxPassatgers,MaxPes,Sortida,Arribada,Preu) values "
-				+ "("+IDVol+","
-						+ ""+idorigen+","
-								+ ""+iddesti+","
-										+ ""+MaxPass+","
-												+ "'"+MaxPes+"','"
-														+ ""+horaSortida+"',"
-																+ ""+horaArribada+","
-																		+ ""+preu+");";
+		String sql = "insert into transpotravelrecu.vols(IDVols,Origen,Desti,MaxPassatgers,MaxPes,Sortida,Arribada,Preu) values("+IDVol+","+idorigen+","+iddesti+","+MaxPass+",'"+MaxPes+"','"+horaSortida+"','"+horaArribada+"',"+preu+");";
 	    	PreparedStatement pst = null;
 	    	
 	    	try {
@@ -411,8 +407,6 @@ public class volsDAOImpl implements volsDAO{
 		return Estat;
 	}*/
 	
-	
-	
 	public static void ObtenirVolsSeleccionats(Conbd conn,int idDesti,int idOrigen,List<vols> llistaVolsFiltrats) {
 		String sql2 = "select * from distribuciovols where idorigen="+idOrigen+" and iddesti="+idDesti+";";
 		
@@ -430,9 +424,12 @@ public class volsDAOImpl implements volsDAO{
 				int MaxPes = rs.getInt("MaxPes");
 				LocalDateTime horaSortida = rs.getObject("Sortida", LocalDateTime.class);
 				LocalDateTime horaArribada = rs.getObject("Arribada", LocalDateTime.class);
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+				String arribada = horaArribada.format(formatter);
+		    	String sortida = horaSortida.format(formatter);
 				int preu = rs.getInt("preu");
 			
-				vols afegir = new vols(IDVols, idorigen,iddesti,preu,MaxPas,MaxPes,horaArribada,horaSortida);
+				vols afegir = new vols(IDVols, idorigen,iddesti,MaxPas,MaxPes,sortida,arribada,preu);
 				llistaVolsFiltrats.add(afegir);
 			
 			}
@@ -464,10 +461,9 @@ public class volsDAOImpl implements volsDAO{
 		}
 		return ID;
 	}
+
 	
-	
-	
-	/*public static String ObtenirCiutat(Conbd conn,String ciutat,int ID) {
+	public static String ObtenirCiutat(Conbd conn,String ciutat,int ID) {
 		String sql2 = "select ciutat from localitzacio where idLocalitzacio="+ID+";";
 		try {
 			
@@ -486,5 +482,5 @@ public class volsDAOImpl implements volsDAO{
 			
 		}
 		return ciutat;
-	}*/
+	}
 }

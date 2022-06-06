@@ -123,12 +123,14 @@ public class AdminVuelosController implements Initializable{
 	   
 		volsDAOImpl.cercarVols(conexio, llistaVols);    
 		volsComprats.setItems(llistaVols);
-		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("iddistribuciovols"));
-		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("iddesti"));
-		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("idorigen"));
-		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("horaArribada"));
-		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("horaSortida"));
-		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("preu"));
+		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("IDVols"));
+		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("Origen"));
+		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("Desti"));
+		ColumnMaxPas.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPas"));
+		ColumnMaxPes.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPes"));
+		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Arribada"));
+		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Sortida"));
+		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("Preu"));
 		
     }
     
@@ -159,16 +161,17 @@ public class AdminVuelosController implements Initializable{
     	int IDDesti=0;
     	LocalDateTime Arribada=DataentCompleta;
     	LocalDateTime Sortida=DataSortCompleta;
-    	//
     	
-    	
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    	String arribada = Arribada.format(formatter);
+    	String sortida = Sortida.format(formatter);
     	
     	IDOrigen=volsDAOImpl.ObtenirID_Localitzacio(conexio, ID_VueloSeleccionat1,IDOrigen);
     	IDDesti=volsDAOImpl.ObtenirID_Localitzacio(conexio, ID_VueloSeleccionat2,IDDesti);
     	
     	System.out.println(Arribada);
     	
-    	volsDAOImpl.insertarVol(conexio, ID,IDOrigen, IDDesti, Pas, Pes,Sortida, Arribada,Preu);
+    	volsDAOImpl.insertarVol(conexio, ID,IDOrigen, IDDesti, Pas, Pes,sortida, arribada,Preu);
 
     }
     
@@ -201,12 +204,14 @@ public class AdminVuelosController implements Initializable{
     	
 		volsDAOImpl.cercarVols(conexio, llistaVols);    
 		volsComprats.setItems(llistaVols);
-		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("iddistribuciovols"));
-		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("iddesti"));
-		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("idorigen"));
-		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("horaArribada"));
-		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("horaSortida"));
-		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("preu"));
+		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("IDVols"));
+		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("Origen"));
+		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("Desti"));
+		ColumnMaxPas.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPas"));
+		ColumnMaxPes.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPes"));
+		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Arribada"));
+		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Sortida"));
+		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("Preu"));
     }
     
    
@@ -228,13 +233,7 @@ public class AdminVuelosController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    	conexio = new Conbd();	
-
-    	ObservableList <String> Estats;
-    	Estats = FXCollections.observableArrayList();
-    	
-    	//IDComboboxEstats.setItems(Estats);
-    	
+    	conexio = new Conbd();		
     	
     	ObservableList <String> paisos_origen;
     	paisos_origen = FXCollections.observableArrayList();
@@ -262,7 +261,7 @@ public class AdminVuelosController implements Initializable{
 		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("IDVols"));
 		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("Origen"));
 		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("Desti"));
-		ColumnMaxPas.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPassatgers"));
+		ColumnMaxPas.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPas"));
 		ColumnMaxPes.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPes"));
 		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Arribada"));
 		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Sortida"));
