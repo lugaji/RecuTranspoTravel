@@ -44,7 +44,7 @@ public interface volsDAO {
 		return ID;
 	}*/
 
-	//vols cercarVolClient(Conbd conn, int id);
+	vols cercarVolClient(Conbd conn, int id);
 	
 	//public ArrayList<String> cercarTotsVolsClient(Conbd conn, int id);
 	

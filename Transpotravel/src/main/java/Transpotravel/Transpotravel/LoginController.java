@@ -115,7 +115,7 @@ public class LoginController implements Initializable{
         		if(queryResult.next()) {
         			
         			idUsuari = queryResult.getString("DNI");
-        			App.setRoot("TranspoTravelRecu");
+        			App.setRoot("TranspoTravelDef");
         		
         				
         		}else {

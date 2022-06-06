@@ -118,18 +118,20 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="426.0" prefWidth="860.0" style="-fx-background-color: #0c3241;">
                                        <children>
-                                          <Button id="butocrearvol" fx:id="buttonCrearVol1" layoutX="360.0" layoutY="350.0" mnemonicParsing="false" onAction="#OnClickInsertarVol" prefHeight="38.0" prefWidth="102.0" text="Crear Vol" />
-                                          <ComboBox id="ComboxOrigen" fx:id="comboCiutatPR" layoutX="325.0" layoutY="94.0" prefHeight="25.0" prefWidth="170.0" />
-                                          <Text fill="WHITE" layoutX="389.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciutat" wrappingWidth="42.33673095703125" />
-                                          <TextField id="inputpreu" fx:id="inputtimearribada1" layoutX="326.0" layoutY="189.0" prefHeight="25.0" prefWidth="169.0" promptText="Introdueix el nom" />
-                                          <Text fill="WHITE" layoutX="348.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Punt de Recollida" wrappingWidth="123.13668823242188" />
+                                          <Button id="butocrearvol" fx:id="buttonCrearVol1" layoutX="348.0" layoutY="348.0" mnemonicParsing="false" onAction="#OnClickInsertarPR" prefHeight="38.0" prefWidth="125.0" text="Crear Punt Recollida" />
+                                          <ComboBox id="ComboxOrigen" fx:id="comboCiutatPR" layoutX="327.0" layoutY="151.0" prefHeight="25.0" prefWidth="170.0" />
+                                          <Text fill="WHITE" layoutX="391.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciutat" wrappingWidth="42.33673095703125" />
+                                          <TextField id="inputpreu" fx:id="inputNomPR" layoutX="327.0" layoutY="220.0" prefHeight="25.0" prefWidth="169.0" promptText="Introdueix el nom" />
+                                          <Text fill="WHITE" layoutX="350.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Punt de Recollida" wrappingWidth="123.13668823242188" />
                                           <Text fill="WHITE" layoutX="307.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crear Punt de Recollida">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
                                           </Text>
-                                          <Text fill="WHITE" layoutX="333.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripció Punt de Recollida" wrappingWidth="153.13668823242188" />
-                                          <TextField id="inputpreu" fx:id="inputtimearribada11" layoutX="326.0" layoutY="286.0" prefHeight="25.0" prefWidth="169.0" promptText="Introdueix la descripció" />
+                                          <Text fill="WHITE" layoutX="335.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripció Punt de Recollida" wrappingWidth="153.13668823242188" />
+                                          <TextField id="inputpreu" fx:id="inputDescripcioPR" layoutX="326.0" layoutY="286.0" prefHeight="25.0" prefWidth="169.0" promptText="Introdueix la descripció" />
+                                          <TextField id="inputpreu" fx:id="inputIDPR" layoutX="327.0" layoutY="86.0" prefHeight="25.0" prefWidth="169.0" promptText="Introdueix l'ID" />
+                                          <Text fill="WHITE" layoutX="350.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Punt de Recollida" wrappingWidth="123.13668823242188" />
                                        </children>
                                        <effect>
                                           <ColorAdjust />

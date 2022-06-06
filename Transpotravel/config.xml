@@ -1,0 +1,9 @@
+<config>
+	<bbdd>
+		<host>localhost</host>
+		<bd>transpotravelrecu</bd>
+		<port>3306</port>
+		<usuari>root</usuari>
+		<contrasenya>lugaji123456789</contrasenya>
+	</bbdd>
+</config>

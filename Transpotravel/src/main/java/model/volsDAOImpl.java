@@ -91,6 +91,31 @@ public class volsDAOImpl implements volsDAO{
 		
 	}
 	
+	public static void ComboBoxCiutatPR(Conbd conn,List<String> destins) {
+		
+		String sql2 = "SELECT Nom FROM transpotravelrecu.localitzacions;";
+		
+		try {
+			
+			PreparedStatement ps = conn.getConexio().prepareStatement(sql2);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				String iddestins = rs.getString("localitzacions.Nom");
+				
+				destins.add(iddestins);			
+				
+			}
+					
+		}catch(Exception e) {
+
+			System.out.println("ERROR En el Combobox Ciutat de Punt de Recollida");
+			
+		}
+
+		
+	}
 	
 	/*public static void ActualitzarVol(Conbd conn,int volActualitzar,String EstatNou) {
 		
@@ -280,7 +305,7 @@ public class volsDAOImpl implements volsDAO{
 		
 	}*/
 	
-	/*@Override
+	@Override
 	public vols cercarVolClient(Conbd conn, int id) {
 		
 		vols distribuciovolsClient = null;
@@ -308,7 +333,7 @@ public class volsDAOImpl implements volsDAO{
 				LocalDateTime horaSortida = rs.getObject("horaSortida", LocalDateTime.class);
 				LocalDateTime horaArribada = rs.getObject("horaArribada", LocalDateTime.class);
 								
-				distribuciovolsClient = new vols(Integer.parseInt(idPunt), origen, desti, preu, horaArribada, horaSortida, 0, 0, " ", null,estat,0,0);
+				//distribuciovolsClient = new vols(Integer.parseInt(idPunt), origen, desti, preu, horaArribada, horaSortida, 0, 0, " ", null,estat,0,0);
 			}
 			
 		}catch(Exception e) {
@@ -317,7 +342,7 @@ public class volsDAOImpl implements volsDAO{
 		
 		return distribuciovolsClient;
 		
-		}*/
+		}
 	
 	
 	public static void eliminarVol(Conbd conn,String idvol) {
@@ -360,7 +385,28 @@ public class volsDAOImpl implements volsDAO{
 	    		
 	    	}
 	}
+	
+	public static void insertarPR(Conbd conn,int IDPR, int idCiutat,String NomPR, String DescripcioPR) {
     	
+		String sql = "INSERT INTO `transpotravelrecu`.`puntsrecollida` (`IDPuntsRecollida`, `IDLocalitzacio`, `Nom`, `Descripcio`) VALUES ('"+IDPR+"', '"+idCiutat+"', '"+NomPR+"', '"+DescripcioPR+"');";
+	    	PreparedStatement pst = null;
+	    	
+	    	try {
+	    		
+	    		System.out.println("Ciutat: "+idCiutat);
+	    		
+	    		pst = conn.getConexio().prepareStatement(sql);
+	    		pst.execute();
+	    		
+	    		
+	    		
+	    	}catch (Exception e) {
+	    		
+	    		System.out.println("ERROR - distribuciovols controller - insertar vol" + e);
+	    		
+	    	}
+	}
+	
 	/*public static int ObtenirID_Puntrecollida(Conbd conn,String PuntRecollida,int IDPuntRecollida) {
 		String sql2 = "select idPunt from puntrecollida where adreca='"+PuntRecollida+"';";
 		
@@ -408,7 +454,7 @@ public class volsDAOImpl implements volsDAO{
 	}*/
 	
 	public static void ObtenirVolsSeleccionats(Conbd conn,int idDesti,int idOrigen,List<vols> llistaVolsFiltrats) {
-		String sql2 = "select * from distribuciovols where idorigen="+idOrigen+" and iddesti="+idDesti+";";
+		String sql2 = "select * from vols where Origen="+idOrigen+" and Desti="+idDesti+";";
 		
 		try {
 			

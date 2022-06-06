@@ -7,6 +7,7 @@ module Transpotravel.Transpotravel {
 	requires javafx.graphics;
 	requires java.desktop;
 	requires javafx.base;
+	requires jdom2;
 
     opens Transpotravel.Transpotravel to javafx.fxml;
     exports Transpotravel.Transpotravel;

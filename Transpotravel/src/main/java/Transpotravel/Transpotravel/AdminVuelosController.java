@@ -76,6 +76,9 @@ public class AdminVuelosController implements Initializable{
     private Button buttonCrearVol;
     
     @FXML
+    private ComboBox<String> comboCiutatPR;
+    
+    @FXML
     private ComboBox<String> combobosorigen;
 
     @FXML
@@ -89,6 +92,15 @@ public class AdminVuelosController implements Initializable{
 
     @FXML
     private TextField inputpes;
+    
+    @FXML
+    private TextField inputIDPR;
+    
+    @FXML
+    private TextField inputNomPR;
+   
+    @FXML
+    private TextField inputDescripcioPR;
     
     @FXML
     private TextField inputpreu;
@@ -138,7 +150,7 @@ public class AdminVuelosController implements Initializable{
     @FXML
     void OnClickInsertarVol(ActionEvent event) {
     	
-    	ID = Integer.parseInt(inputID.getText());
+    	IDVol = Integer.parseInt(inputID.getText());
     	Pes = Integer.parseInt(inputpes.getText());
     	Pas = Integer.parseInt(inputpas.getText());
     	Preu=Integer.parseInt(inputpreu.getText());
@@ -153,7 +165,6 @@ public class AdminVuelosController implements Initializable{
 		DataentCompleta=dataEnt.atTime(Integer.parseInt(partsarribada[0]), Integer.parseInt(partsarribada[1]));
 		
 		DataSortCompleta=dataSort.atTime(Integer.parseInt(partssortida[0]), Integer.parseInt(partssortida[1]));
-		System.out.println(DataSortCompleta);
 		Desc=inputpes.getText();
 
 		
@@ -166,12 +177,22 @@ public class AdminVuelosController implements Initializable{
     	String arribada = Arribada.format(formatter);
     	String sortida = Sortida.format(formatter);
     	
-    	IDOrigen=volsDAOImpl.ObtenirID_Localitzacio(conexio, ID_VueloSeleccionat1,IDOrigen);
-    	IDDesti=volsDAOImpl.ObtenirID_Localitzacio(conexio, ID_VueloSeleccionat2,IDDesti);
+    	IDOrigen=volsDAOImpl.ObtenirID_Localitzacio(conexio, IDCiutatDesti,IDOrigen);
+    	IDDesti=volsDAOImpl.ObtenirID_Localitzacio(conexio, IDCiutatOrigen,IDDesti);
     	
-    	System.out.println(Arribada);
+    	volsDAOImpl.insertarVol(conexio, IDVol,IDOrigen, IDDesti, Pas, Pes,sortida, arribada,Preu);
+
+    }
+    
+    @FXML
+    void OnClickInsertarPR(ActionEvent event) {
+    	int IDCiutatPR = 0;
+    	IDCiutatPR = volsDAOImpl.ObtenirID_Localitzacio(conexio,NomCiutatPR, IDCiutatPR);
+    	IDPR = Integer.parseInt(inputIDPR.getText());
+    	String NomPR = inputNomPR.getText();
+    	String DescripcioRP = inputDescripcioPR.getText();
     	
-    	volsDAOImpl.insertarVol(conexio, ID,IDOrigen, IDDesti, Pas, Pes,sortida, arribada,Preu);
+    	volsDAOImpl.insertarPR(conexio, IDPR, IDCiutatPR, NomPR, DescripcioRP);
 
     }
     
@@ -219,9 +240,10 @@ public class AdminVuelosController implements Initializable{
  	private Conbd conexio;
 	int EstatIDVolSeleccionat=0;
     String EstatNouSeleccionat=" ";
- 	String ID_VueloSeleccionat1="";
- 	String ID_VueloSeleccionat2="";
- 	int Preu,Pes,Pas,ID;
+ 	String IDCiutatDesti="";
+ 	String IDCiutatOrigen="";
+ 	String NomCiutatPR = "";
+ 	int Preu,Pes,Pas,IDVol,IDPR;
     LocalDate dataEnt;
     LocalDate dataSort;
     LocalDateTime DataentCompleta;
@@ -244,6 +266,11 @@ public class AdminVuelosController implements Initializable{
     	paisos_destins = FXCollections.observableArrayList();
     	volsDAOImpl.ComboBoxOrigen(conexio, paisos_destins);
     	comboboxdesti.setItems(paisos_destins);
+    	
+    	ObservableList <String> ciutats_pr;
+    	ciutats_pr = FXCollections.observableArrayList();
+    	volsDAOImpl.ComboBoxCiutatPR(conexio, ciutats_pr);
+    	comboCiutatPR.setItems(ciutats_pr);
     	
     	ObservableList <String> punts_recollida;
     	punts_recollida = FXCollections.observableArrayList();
@@ -281,7 +308,16 @@ public class AdminVuelosController implements Initializable{
     		@Override
     		public void changed(ObservableValue<? extends String> valorActual, String valorAnterior, String valorSeleccionat) {
     				if(valorSeleccionat!=null) {
-    					ID_VueloSeleccionat1=valorSeleccionat;
+    					IDCiutatDesti=valorSeleccionat;
+      				}
+    		}
+    	});
+		
+		comboCiutatPR.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+    		@Override
+    		public void changed(ObservableValue<? extends String> valorActual, String valorAnterior, String valorSeleccionat) {
+    				if(valorSeleccionat!=null) {
+    					NomCiutatPR=valorSeleccionat;
       				}
     		}
     	});
@@ -290,7 +326,7 @@ public class AdminVuelosController implements Initializable{
     		@Override
     		public void changed(ObservableValue<? extends String> valorActual, String valorAnterior, String valorSeleccionat) {
     				if(valorSeleccionat!=null) {
-    					ID_VueloSeleccionat2=valorSeleccionat;
+    					IDCiutatOrigen=valorSeleccionat;
     				}
     		}
     	});
