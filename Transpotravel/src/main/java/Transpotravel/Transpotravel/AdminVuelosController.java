@@ -144,7 +144,7 @@ public class AdminVuelosController implements Initializable{
     	dataEnt=inputdatarribada.getValue();
 		
 		dataSort=inputdatasortida.getValue();
-		System.out.println(dataSort);
+		
 		String partsarribada[]=inputtimearribada.getText().split(":");
 		String partssortida[]=inputtimesort.getText().split(":");
 		
@@ -159,6 +159,7 @@ public class AdminVuelosController implements Initializable{
     	int IDDesti=0;
     	LocalDateTime Arribada=DataentCompleta;
     	LocalDateTime Sortida=DataSortCompleta;
+    	//
     	
     	
     	
