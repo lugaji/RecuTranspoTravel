@@ -2,6 +2,8 @@ package model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class puntRecollidaDAOImpl implements puntRecollidaDAO {
@@ -11,7 +13,60 @@ public class puntRecollidaDAOImpl implements puntRecollidaDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public static void eliminarPR(Conbd conn,String idPR) {
+    	
+		
+    	String sql = "DELETE FROM `transpotravelrecu`.`puntsrecollida` WHERE (`IDPuntsRecollida` = "+idPR+");";
+    	PreparedStatement pst = null;
+  
+   	
+    	try {
+    		
+    		pst = conn.getConexio().prepareStatement(sql);
+    		pst.execute();
+    		
+    		
+    		
+    	}catch (Exception e) {
+    		
+    		
+    		System.out.println("ERROR - Punts Recollida - eliminar PR " + e);
+    		
+    	}
+	}
 
+	public static void cercarPRs(Conbd conn,List<puntRecollida> llista2) {
+		// TODO Auto-generated method stub
+		
+		String sql = "SELECT * FROM transpotravelrecu.puntsrecollida;";
+				
+		try {
+			
+			PreparedStatement ps = conn.getConexio().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int IDPuntsRecollida = rs.getInt("IDPuntsRecollida");
+				int IDLocalitzacio = rs.getInt("IDLocalitzacio");
+				String NomPR = rs.getString("Nom");
+				String DescripcioPR = rs.getString("Descripcio");
+				
+				puntRecollida afegir = new puntRecollida(IDPuntsRecollida, IDLocalitzacio,NomPR,DescripcioPR);
+
+				llista2.add(afegir);			
+				
+			}
+					
+		}catch(Exception e) {
+			
+			System.out.println("ERROR En el Cercar Punts de Recollida: " + e);
+			
+		}
+				
+	}
+	
 	@Override
 	public boolean create(Conbd conn, puntRecollida punt) {
 		// TODO Auto-generated method stub

@@ -6,52 +6,50 @@ import java.util.List;
 
 public class puntRecollida {
 
-	private int idPuntRecollida;
-	private String adreca;
+	private int IDPuntsRecollida;
+	private int IDLocalitzacio;
+	private String NomPR;
+	private String DescripcioPR;
 	
+	public puntRecollida(int iDPuntsRecollida, int iDLocalitzacio, String nomPR, String descripcioPR) {
+		super();
+		IDPuntsRecollida = iDPuntsRecollida;
+		IDLocalitzacio = iDLocalitzacio;
+		NomPR = nomPR;
+		DescripcioPR = descripcioPR;
+	}
 	
-	public puntRecollida(int idPuntRecollida, String adreca) {
-		this.idPuntRecollida = idPuntRecollida;
-		this.adreca = adreca;
+	public int getIDPuntsRecollida() {
+		return IDPuntsRecollida;
 	}
-
 	
-	public int getIdPuntRecollida() {
-		return idPuntRecollida;
+	public void setIDPuntsRecollida(int iDPuntsRecollida) {
+		IDPuntsRecollida = iDPuntsRecollida;
 	}
-
-
-
-
-
-	public void setIdPuntRecollida(int idPuntRecollida) {
-		this.idPuntRecollida = idPuntRecollida;
+	public int getIDLocalitzacio() {
+		return IDLocalitzacio;
 	}
-
-
-
-
-
-	public String getAdreca() {
-		return adreca;
+	public void setIDLocalitzacio(int iDLocalitzacio) {
+		IDLocalitzacio = iDLocalitzacio;
 	}
-
-
-
-
-
-	public void setAdreca(String adreca) {
-		this.adreca = adreca;
+	public String getNomPR() {
+		return NomPR;
 	}
-
-
-
-
+	public void setNomPR(String nomPR) {
+		NomPR = nomPR;
+	}
+	public String getDescripcioPR() {
+		return DescripcioPR;
+	}
+	public void setDescripcioPR(String descripcioPR) {
+		DescripcioPR = descripcioPR;
+	}
 
 	@Override
 	public String toString() {
-		return "puntRecollida [idPuntRecollida=" + idPuntRecollida + ", adreca=" + adreca + "]";
+		return "puntRecollida [IDPuntsRecollida=" + IDPuntsRecollida + ", IDLocalitzacio=" + IDLocalitzacio + ", NomPR="
+				+ NomPR + ", DescripcioPR=" + DescripcioPR + "]";
 	}
-
+	
 	
 }

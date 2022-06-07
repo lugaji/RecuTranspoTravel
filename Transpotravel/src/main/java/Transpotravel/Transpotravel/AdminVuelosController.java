@@ -32,9 +32,22 @@ import model.Conbd;
 import model.vols;
 import model.volsDAOImpl;
 import model.equipatge;
+import model.puntRecollida;
+import model.puntRecollidaDAOImpl;
 
 public class AdminVuelosController implements Initializable{
 
+	@FXML
+    private TableColumn<puntRecollida, Integer> ColumnIdPR;
+	
+	@FXML
+    private TableColumn<puntRecollida, Integer> ColumnCiutatPR;
+	
+	@FXML
+    private TableColumn<puntRecollida, String> ColumnNomPR;
+	
+	@FXML
+    private TableColumn<puntRecollida, String> ColumnDescPR;
 	
     @FXML
     private TableColumn<vols, String> ColumnIdVol;
@@ -112,6 +125,9 @@ public class AdminVuelosController implements Initializable{
     private TextField inputpas;
     
     @FXML
+    private TextField inputidborrarPR;
+    
+    @FXML
     private TextField inputidborrar;
 
     @FXML
@@ -122,7 +138,10 @@ public class AdminVuelosController implements Initializable{
     
     
     @FXML
-    private TableView<vols> volsComprats;
+    private TableView<vols> volsComprats = new TableView<>();
+    
+    @FXML
+    private TableView<puntRecollida> PRCreats = new TableView<>();
     
     
     @FXML
@@ -206,14 +225,58 @@ public class AdminVuelosController implements Initializable{
     	ObservableList <vols>llistaVols;
 	    llistaVols=FXCollections.observableArrayList();
     	
-		volsDAOImpl.cercarVols(conexio, llistaVols);    
+	    volsDAOImpl.cercarVols(conexio, llistaVols);    
 		volsComprats.setItems(llistaVols);
-		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("iddistribuciovols"));
-		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("iddesti"));
-		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("idorigen"));
-		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("horaArribada"));
-		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("horaSortida"));
-		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("preu"));
+		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("IDVols"));
+		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("Origen"));
+		Columndesti.setCellValueFactory(new PropertyValueFactory<vols,String>("Desti"));
+		ColumnMaxPas.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPas"));
+		ColumnMaxPes.setCellValueFactory(new PropertyValueFactory<vols,Integer>("MaxPes"));
+		Columndataarribada.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Arribada"));
+		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Sortida"));
+		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("Preu"));
+    }
+    
+    @FXML
+    void OnClickBorrarPR(ActionEvent event) {    	
+    	
+    	puntRecollidaDAOImpl.eliminarPR(conexio, inputidborrarPR.getText());
+
+    	try {
+			//Emplenem la taula de PR
+	    	ObservableList <puntRecollida> ListPR;
+	    	ListPR = FXCollections.observableArrayList();
+	    
+	    	puntRecollidaDAOImpl.cercarPRs(conexio, ListPR);
+	    	
+	    	PRCreats.setItems(ListPR);
+	    	ColumnIdPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,Integer>("IDPuntsRecollida"));
+	    	ColumnCiutatPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,Integer>("IDLocalitzacio"));
+	    	ColumnNomPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,String>("NomPR"));
+	    	ColumnDescPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,String>("DescripcioPR"));
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+    }
+    
+    @FXML
+    void OnClickActualitzarPR(ActionEvent event) {    	
+
+    	try {
+			//Emplenem la taula de PR
+	    	ObservableList <puntRecollida> ListPR;
+	    	ListPR = FXCollections.observableArrayList();
+	    
+	    	puntRecollidaDAOImpl.cercarPRs(conexio, ListPR);
+	    	
+	    	PRCreats.setItems(ListPR);
+	    	ColumnIdPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,Integer>("IDPuntsRecollida"));
+	    	ColumnCiutatPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,Integer>("IDLocalitzacio"));
+	    	ColumnNomPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,String>("NomPR"));
+	    	ColumnDescPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,String>("DescripcioPR"));
+		}catch(Exception e) {
+			System.out.println(e);
+		}
     }
     
     
@@ -272,18 +335,12 @@ public class AdminVuelosController implements Initializable{
     	volsDAOImpl.ComboBoxCiutatPR(conexio, ciutats_pr);
     	comboCiutatPR.setItems(ciutats_pr);
     	
-    	ObservableList <String> punts_recollida;
-    	punts_recollida = FXCollections.observableArrayList();
-    
-    	
-
-    	
-    	
+    	//Emplenem la taula de vols
     	ObservableList <vols>llistaVols;
 	    llistaVols=FXCollections.observableArrayList();
-	    	
-	   
-		volsDAOImpl.cercarVols(conexio, llistaVols);    
+
+		volsDAOImpl.cercarVols(conexio, llistaVols);
+		
 		volsComprats.setItems(llistaVols);
 		ColumnIdVol.setCellValueFactory(new PropertyValueFactory<vols,String>("IDVols"));
 		Columnorigen.setCellValueFactory(new PropertyValueFactory<vols,String>("Origen"));
@@ -294,14 +351,23 @@ public class AdminVuelosController implements Initializable{
 		Columndatasortida.setCellValueFactory(new PropertyValueFactory<vols,LocalDateTime>("Sortida"));
 		Columnpreu.setCellValueFactory(new PropertyValueFactory<vols,Integer>("Preu"));
     
-		
-		//ObservableList <vols>llistaVolsEstats;
-		//llistaVolsEstats=FXCollections.observableArrayList();
+		try {
+			//Emplenem la taula de PR
+	    	ObservableList <puntRecollida> ListPR;
+	    	ListPR = FXCollections.observableArrayList();
+	    
+	    	puntRecollidaDAOImpl.cercarPRs(conexio, ListPR);
 	    	
-	   
-		//volsDAOImpl.cercarVols(conexio, llistaVolsEstats);    
-		//TaulaEstatsVolsEstats.setItems(llistaVolsEstats);
-    
+	    	PRCreats.setItems(ListPR);
+	    	ColumnIdPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,Integer>("IDPuntsRecollida"));
+	    	ColumnCiutatPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,Integer>("IDLocalitzacio"));
+	    	ColumnNomPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,String>("NomPR"));
+	    	ColumnDescPR.setCellValueFactory(new PropertyValueFactory<puntRecollida,String>("DescripcioPR"));
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		
     
     
 		comboboxdesti.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

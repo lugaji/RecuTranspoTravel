@@ -257,7 +257,7 @@ public class volsDAOImpl implements volsDAO{
 					
 		}catch(Exception e) {
 			
-			System.out.println("ERROR En el Cercar vols oferta: " + e);
+			System.out.println("ERROR En el Cercar vols: " + e);
 			
 		}
 				
@@ -364,6 +364,8 @@ public class volsDAOImpl implements volsDAO{
     		
     	}
 	}
+	
+	
 	
 	public static void insertarVol(Conbd conn,int IDVol, int idorigen,int iddesti,int MaxPass,int MaxPes,String horaSortida,String horaArribada,int preu) {
     	
@@ -507,7 +509,6 @@ public class volsDAOImpl implements volsDAO{
 		}
 		return ID;
 	}
-
 	
 	public static String ObtenirCiutat(Conbd conn,String ciutat,int ID) {
 		String sql2 = "select ciutat from localitzacio where idLocalitzacio="+ID+";";
